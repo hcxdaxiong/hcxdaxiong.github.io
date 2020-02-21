@@ -68,6 +68,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-daxiongclog" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/17/daxiongclog/" class="article-date">
+  <time datetime="2020-02-16T16:50:35.000Z" itemprop="datePublished">2020-02-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/17/daxiongclog/">daxiongclog</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="T-SQL语法学习（一）"><a href="#T-SQL语法学习（一）" class="headerlink" title="T-SQL语法学习（一）"></a>T-SQL语法学习（一）</h2><h3 id="第一节-不常用语句"><a href="#第一节-不常用语句" class="headerlink" title="第一节 不常用语句"></a>第一节 不常用语句</h3><p>不常用语句-指的是一些不常用的查询语句，不针对业务数据查询</p>
+<ul>
+<li>SET STATISTICS IO ON（用于查询逻辑读取次数，物理读取次数）<br>图片</li>
+<li>select @@version （查询当前实例的数据库版本）</li>
+</ul>
+<h3 id="第二节-操作数据库管理工具注意事项"><a href="#第二节-操作数据库管理工具注意事项" class="headerlink" title="第二节 操作数据库管理工具注意事项"></a>第二节 操作数据库管理工具注意事项</h3><p>当我们在使用数据库图形化管理界面时，在执行update,insert,delete操作时，要是忘了加上条件，那么将会发生非常严重的问题，整个表的数据，乃至整个数据库都可能被你删除掉了，因此在做这些危险操作时，我建议加上事务，如下:</p>
+<pre><code>begin tran hcx  --创建并命名事务
+update MCSMCB
+set MCB004=c.MYA013,MCB021=c.MYA003
+from
+ MCSMCB b
+ left join MCSMCA a on b.MCB001=a.MCA001
+ left join EB_DuoMoCh.dbo.BASMYA c on c.MYA001=a.MCA002 and  RTRIM(LTRIM(c.MYA004))=b.MCB003 AND b.MCB015=c.MYA002
+
+        --先使用select将要update的列，以及要update的值查询出来，做好对比，然后再执行update操作，并select出来，最后commit
+ select MCB001,MCA002,c.MYA004,b.MCB003,c.MYA013,b.MCB004,c.MYA003,b.MCB021,b.MCB015,c.MYA002 from
+ MCSMCB b
+ left join MCSMCA a on b.MCB001=a.MCA001
+ left join EB_DuoMoCh.dbo.BASMYA c on c.MYA001=a.MCA002 and  RTRIM(LTRIM(c.MYA004))=b.MCB003 AND b.MCB015=c.MYA002
+
+rollback tran hcx  --回滚事务
+COMMIT TRAN hcx
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="hcxdaxiong.github.io/2020/02/17/daxiongclog/" data-id="ck6w8g4m60001z8urju9i22zj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/17/hello-world/" class="article-date">
@@ -174,7 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="hcxdaxiong.github.io/2020/02/17/hello-world/" data-id="ck6p9hz0v0000v8urd9a56km1" class="article-share-link">Share</a>
+      <a data-url="hcxdaxiong.github.io/2020/02/17/hello-world/" data-id="ck6w8g4m00000z8urtene1lps" class="article-share-link">Share</a>
       
       
     </footer>
@@ -212,6 +270,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/02/17/daxiongclog/">daxiongclog</a>
+          </li>
         
           <li>
             <a href="/2020/02/17/hello-world/">Hello World</a>
